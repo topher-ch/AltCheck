@@ -31,24 +31,20 @@ public class TimingService
             // calculate the distance between the current and next hit object
             HitObject prevHitObject = beatmap.HitObjects[j];
             HitObject nextHitObject = beatmap.HitObjects[j + 1];
-            double distance = nextHitObject.StartTime - prevHitObject.StartTime;
-
-            // find the first beat snap divisor that the distance is larger than, once found, increment and break
-            foreach (BeatSnapDivisor beatSnapDivisor in Enum.GetValues<BeatSnapDivisor>())
-            {
-                if (distance < currentBeatSnapLengths[beatSnapDivisor] - 3)
-                    continue;
-                beatSnapDivisorCounts[beatSnapDivisor]++;
-                break;
-            }
+            int distance = nextHitObject.StartTime - prevHitObject.StartTime;
             
-            // if the next hit object is past the next timing point, update current and next timing points
-            if (nextTimingPoint != null && nextHitObject.StartTime >= nextTimingPoint.Offset)
+            // make sure the right timing point is being used
+            while (nextTimingPoint != null && prevHitObject.StartTime < nextTimingPoint.Offset)
             {
                 currentTimingPoint = nextTimingPoint;
-                nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ?  nonInheritedTimingPoints[i + 1] : null;
+                nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ? nonInheritedTimingPoints[i + 1] : null;
+                i++;
                 currentBeatSnapLengths = TimingPointBeatSnapLengths(currentTimingPoint);
             }
+
+            // find the first beat snap divisor that the distance is larger than, once found, increment and break
+            BeatSnapDivisor closestBeatSnapDivisor = ClosestBeatSnapDivisor(distance, currentBeatSnapLengths);
+            beatSnapDivisorCounts[closestBeatSnapDivisor]++;
         }
         
         // Find maximum count
@@ -90,5 +86,16 @@ public class TimingService
         beatSnapLengths[BeatSnapDivisor.TWELFTH] = beatLength / 12;
         beatSnapLengths[BeatSnapDivisor.SIXTEENTH] = beatLength / 16;
         return beatSnapLengths;
+    }
+
+    public BeatSnapDivisor ClosestBeatSnapDivisor(int distance, Dictionary<BeatSnapDivisor, double> beatSnapLengths)
+    {
+        foreach (BeatSnapDivisor beatSnapDivisor in Enum.GetValues<BeatSnapDivisor>())
+        {
+            if (distance < beatSnapLengths[beatSnapDivisor] - 3)
+                continue;
+            return beatSnapDivisor;
+        }
+        return BeatSnapDivisor.WHOLE;
     }
 }

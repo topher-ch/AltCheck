@@ -6,6 +6,11 @@ namespace alternator_analyser.Services;
 
 public class AlternationService
 {
+    public HandAssignment redDefaultHand;
+    public HandAssignment blueDefaultHand;
+    public bool resetOnFinishers;
+    public bool resetOnSingletapSnapDivisor;
+    
     public class AlternatedHitObject
     {
         public HitObject hitObject { get; set; }
@@ -14,6 +19,8 @@ public class AlternationService
     
     public List<AlternatedHitObject> MapAlternation(Beatmap beatmap, BeatSnapDivisor beatSnapDivisor)
     {
-        return new List<AlternatedHitObject>();
+        List<AlternatedHitObject> alternatedHitObjects = new List<AlternatedHitObject>();
+        
+        return alternatedHitObjects;
     }
 }
