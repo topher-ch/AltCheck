@@ -11,6 +11,7 @@ alternationService.RedDefaultHand = HandAssignment.RIGHT;
 alternationService.BlueDefaultHand = HandAssignment.RIGHT;
 alternationService.ResetOnFinishers = true;
 alternationService.ResetOnSingletapSnapDivisor = false;
+StatsService statsService = new StatsService();
 
 Beatmap beatmap =
     BeatmapDecoder.Decode(
@@ -27,3 +28,17 @@ foreach (AlternationService.AlternatedHitObject alternatedObject in alternatedHi
     Console.WriteLine("Offset: " + alternatedObject.hitObject.StartTime);
     Console.WriteLine("Hand Assignment: " + alternatedObject.handAssignment);
 }
+Console.WriteLine("");
+Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), StatsService.Counts> stats = statsService.Stats(beatmap, BeatSnapDivisor.QUARTER, alternatedHitObjects);
+foreach ((BeatSnapDivisor beatSnapDivisor, int length) in stats.Keys)
+{
+    Console.WriteLine("beatSnapDivisor: " + beatSnapDivisor);
+    Console.WriteLine("length: " + length);
+    Console.WriteLine("leftCount: " + stats[(beatSnapDivisor, length)].LeftCount);
+    Console.WriteLine("rightCount: " + stats[(beatSnapDivisor, length)].RightCount);
+    Console.WriteLine("bothCount: " + stats[(beatSnapDivisor, length)].BothCount);
+}
+StatsService.Counts overall = statsService.OverallCounts(stats);
+StatsService.Counts overallNoSingletaps = statsService.OverallCountsNoSingletaps(stats);
+Console.WriteLine("overall: " + overall);
+Console.WriteLine("overallNoSingletaps: " + overallNoSingletaps);
