@@ -45,6 +45,18 @@ StatsService.Counts overallNoSingletaps = statsService.OverallCountsNoSingletaps
 Console.WriteLine("overall: " + overall);
 Console.WriteLine("overallNoSingletaps: " + overallNoSingletaps);
 
+int[] boundaries = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 21 };
+Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), StatsService.Counts> overallLengthBreakpoints =
+    statsService.OverallCountsLengthBreakpoints(stats, boundaries);
+foreach ((BeatSnapDivisor beatSnapDivisor, (int min, int max)) in overallLengthBreakpoints.Keys)
+{
+    Console.WriteLine("beatSnapDivisor: " + beatSnapDivisor);
+    Console.WriteLine("length min: " + min);
+    Console.WriteLine("length max: " + max);
+    Console.WriteLine("leftCount: " + overallLengthBreakpoints[(beatSnapDivisor, (min, max))].LeftCount);
+    Console.WriteLine("rightCount: " + overallLengthBreakpoints[(beatSnapDivisor, (min, max))].RightCount);
+    Console.WriteLine("bothCount: " + overallLengthBreakpoints[(beatSnapDivisor, (min, max))].BothCount);
+}
 
 // Beatmap beatmap =
 //     BeatmapDecoder.Decode(

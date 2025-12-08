@@ -12,6 +12,12 @@ public class StatsService
         public int RightCount { get; set; }
         public int BothCount { get; set; }
     }
+
+    public record BeatSnapDivisorCounts
+    {
+        public BeatSnapDivisor BeatSnapDivisor { get; set; }
+        public required Counts Counts { get; set; }
+    }
     
     public Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> Stats(Beatmap beatmap, BeatSnapDivisor alternatedBeatSnapDivisor,
         List<AlternationService.AlternatedHitObject> alternatedHitObjects)
@@ -110,5 +116,52 @@ public class StatsService
             overall.BothCount += counts[(beatSnapDivisor, length)].BothCount;
         }
         return overall;
+    }
+
+    public Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts> OverallCountsLengthBreakpoints(
+        Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> counts, int[] boundaries)
+    {
+        List<(int min, int max)> ranges = BuildRanges(boundaries);
+        Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts> overall = 
+            new Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts>();
+
+        foreach ((BeatSnapDivisor beatSnapDivisor, int length) in counts.Keys)
+        {
+            var range = FindRange(ranges, length);
+            if (!overall.ContainsKey((beatSnapDivisor, range)))
+            {
+                overall[(beatSnapDivisor, range)] = new Counts();
+            }
+            overall[(beatSnapDivisor, range)].LeftCount += counts[(beatSnapDivisor, length)].LeftCount;
+            overall[(beatSnapDivisor, range)].RightCount += counts[(beatSnapDivisor, length)].RightCount;
+            overall[(beatSnapDivisor, range)].BothCount += counts[(beatSnapDivisor, length)].BothCount;
+        }
+        return overall;
+    }
+
+    public List<(int min, int max)> BuildRanges(int[] boundaries)
+    {
+        var result = new List<(int min, int max)>();
+
+        for (int i = 0; i < boundaries.Length; i++)
+        {
+            int min = boundaries[i];
+            int max = (i + 1 < boundaries.Length) ? boundaries[i + 1] - 1 : int.MaxValue;
+            result.Add((min, max));
+        }
+
+        return result;
+    }
+
+    public (int min, int max) FindRange(List<(int min, int max)> ranges, int length)
+    {
+        foreach (var range in ranges)
+        {
+            if (length >= range.min && length <= range.max)
+            {
+                return range;
+            }
+        }
+        return (-1, -1);
     }
 }
