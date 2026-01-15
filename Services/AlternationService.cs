@@ -12,110 +12,96 @@ public class AlternationService
     public HandAssignment BlueDefaultHand;
     public bool ResetOnFinishers;
     public bool ResetOnSingletapSnapDivisor;
-    
-    public class AlternatedHitObject
+    public BeatSnapDivisor SingletapSnapDivisor;
+    public double? SingletapBeatLength;
+
+    public class AlternatedHitObject(HitObject hitObject, HandAssignment handAssignment)
     {
-        public HitObject hitObject { get; set; }
-        public HandAssignment  handAssignment { get; set; }
+        public readonly HitObject HitObject = hitObject;
+        public readonly HandAssignment HandAssignment = handAssignment;
     }
 
     public void OnBeatmapChanged(Beatmap beatmap)
     {
-        Console.WriteLine($"OnBeatmapChanged: {beatmap}");
-    }
-    
-    public List<AlternatedHitObject> MapAlternation(Beatmap beatmap, BeatSnapDivisor alternatedBeatSnapDivisor)
-    {
-        List<AlternatedHitObject> alternatedHitObjects = new List<AlternatedHitObject>();
-        
-        // Red-line timing points
-        List<TimingPoint> nonInheritedTimingPoints = TimingService.NonInheritedTimingPoints(beatmap);
-        if (nonInheritedTimingPoints.Count == 0)
-            return null;
-        int i = 0;
-        TimingPoint currentTimingPoint = nonInheritedTimingPoints[i];
-        TimingPoint? nextTimingPoint = (nonInheritedTimingPoints.Count > 1) ? nonInheritedTimingPoints[1] : null;
-        Dictionary<BeatSnapDivisor, double> currentBeatSnapLengths = TimingService.TimingPointBeatSnapLengths(currentTimingPoint);
-        
-        // Iterate through hit objects, find the hand assignment and append to the list
-        AlternatedHitObject? prevAltHitObject = null;
-        for (int j = 0; j < beatmap.HitObjects.Count; j++)
+        var alternatedHitObjects = MapAlternatedHitObjects(beatmap);
+        foreach (var aho in alternatedHitObjects)
         {
-            // specify next hit object
-            HitObject nextHitObject = beatmap.HitObjects[j];
-            
-            // make sure the right timing point is being used
-            while (nextTimingPoint != null && prevAltHitObject != null && 
-                   prevAltHitObject.hitObject.StartTime < nextTimingPoint.Offset)
+            Console.WriteLine($"{aho.HitObject.StartTime}: {aho.HandAssignment}");
+        }
+    }
+
+    public List<AlternatedHitObject> MapAlternatedHitObjects(Beatmap beatmap)
+    {
+        // get red lines and initialize first red line
+        var redLines = TimingService.NonInheritedTimingPoints(beatmap);
+        if (redLines.Count == 0)
+            throw new Exception();
+        var redLineIdx = 0;
+        var beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx]);
+        if (SingletapBeatLength is not null)
+            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value, beatSnapLengths);
+        
+        // initialize list of alternated hit objects
+        var alternatedHitObjects = new List<AlternatedHitObject>();
+        AlternatedHitObject? prevAlternatedHitObject = null;
+        foreach (var hitObject in beatmap.HitObjects)
+        {
+            // update red line if necessary
+            if (prevAlternatedHitObject is not null
+                && redLineIdx + 1 < redLines.Count
+                && prevAlternatedHitObject.HitObject.StartTime >= redLines[redLineIdx + 1].Offset)
             {
-                currentTimingPoint = nextTimingPoint;
-                nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ? nonInheritedTimingPoints[i + 1] : null;
-                i++;
-                currentBeatSnapLengths = TimingService.TimingPointBeatSnapLengths(currentTimingPoint);
+                beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx+1]);
+                if (SingletapBeatLength is not null)
+                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value, beatSnapLengths);
+                redLineIdx++;
             }
 
-            // find the next hand assignment
-            HandAssignment handAssignment = NextHandAssignment(prevAltHitObject, nextHitObject, currentBeatSnapLengths,
-                alternatedBeatSnapDivisor);
-            AlternatedHitObject alternatedHitObject = new AlternatedHitObject();
-            alternatedHitObject.hitObject = nextHitObject;
-            alternatedHitObject.handAssignment = handAssignment;
-            
-            // append the new alternated hit object and update previous alternated hit object
+            // add new alternated hit object to the list
+            var nextHandAssigment = NextHandAssignment(prevAlternatedHitObject, hitObject, beatSnapLengths);
+            var alternatedHitObject = new AlternatedHitObject(hitObject, nextHandAssigment);
             alternatedHitObjects.Add(alternatedHitObject);
-            prevAltHitObject = alternatedHitObject;
+            prevAlternatedHitObject = alternatedHitObject;
         }
-        
         return alternatedHitObjects;
     }
-
-    public HandAssignment NextHandAssignment(AlternatedHitObject? prevAltHitObject, HitObject nextHitObject, 
-        Dictionary<BeatSnapDivisor, double> currentBeatSnapLengths, BeatSnapDivisor alternatedBeatSnapDivisor)
+    
+    public HandAssignment NextHandAssignment(
+        AlternatedHitObject? prevAlternatedHitObject, 
+        HitObject nextHitObject, 
+        Dictionary<BeatSnapDivisor, double> beatSnapLengths)
     {
-        // if there is no previous object
-        if (prevAltHitObject == null)
-        {
-            switch (nextHitObject)
-            {
-                // a spinner or drumroll is always BOTH
-                case TaikoSpinner or TaikoDrumroll:
-                    return HandAssignment.BOTH;
-                // if a finisher and resetOnFinishers then BOTH, otherwise red/blueDefault
-                case TaikoHit taikoHit:
-                    if (taikoHit.IsBig)
-                        if (ResetOnFinishers)
-                            return HandAssignment.BOTH;
-                    return (taikoHit.Color == TaikoColor.Red) ? RedDefaultHand : BlueDefaultHand;
-            }
-
-            Console.WriteLine("NextHandAssignment failed for first object");
+        // if nextHitObject is a TaikoDrumRoll or TaikoSpinner then always BOTH
+        if (nextHitObject is TaikoDrumroll or TaikoSpinner)
             return HandAssignment.BOTH;
-        }
-
-        // otherwise prevAltHitObject exists
-        switch (nextHitObject)
-        {
-            // a spinner or drumroll is always BOTH
-            case TaikoSpinner or TaikoDrumroll:
-                return HandAssignment.BOTH;
-            // if a finisher and resetOnFinishers then BOTH
-            case TaikoHit taikoHit:
-                if (taikoHit.IsBig)
-                    if (ResetOnFinishers)
-                        return HandAssignment.BOTH;
-                // otherwise defaulted/alternated depending on distance
-                int distance = nextHitObject.StartTime - prevAltHitObject.hitObject.StartTime;
-                BeatSnapDivisor closestBeatSnapDivisor =
-                    TimingService.ClosestBeatSnapDivisor(distance, currentBeatSnapLengths);
-                if (prevAltHitObject.handAssignment == HandAssignment.BOTH 
-                    || (ResetOnSingletapSnapDivisor && closestBeatSnapDivisor >= alternatedBeatSnapDivisor))
-                {
-                    return (taikoHit.Color == TaikoColor.Red) ? RedDefaultHand : BlueDefaultHand;
-                }
-                return prevAltHitObject.handAssignment == HandAssignment.LEFT ? HandAssignment.RIGHT : HandAssignment.LEFT;
-        }
         
-        Console.WriteLine("NextHandAssignment failed for non-first object");
-        return HandAssignment.BOTH;
+        // otherwise nextHitObject is a TaikoHit, throw an exception otherwise
+        if (nextHitObject is not TaikoHit taikoHit)
+            throw new Exception();
+        
+        // if ResetOnFinishers is true and nextHitObject is a Finisher then BOTH
+        if (ResetOnFinishers && taikoHit.IsBig)
+            return HandAssignment.BOTH;
+        
+        // if the previous hit object does not exist, default
+        if (prevAlternatedHitObject == null)
+            return (taikoHit.Color == TaikoColor.Red) ? RedDefaultHand : BlueDefaultHand;
+        
+        // otherwise the previous hit object does exist
+        // if the previous hit object is BOTH, default
+        if (prevAlternatedHitObject.HandAssignment == HandAssignment.BOTH)
+            return (taikoHit.Color == TaikoColor.Red) ? RedDefaultHand : BlueDefaultHand;
+        
+        // if the previous hit object is larger than the SingletapSnapDivisor and ResetOnSingletapSnapDivisor is true,
+        // default
+        var distance = nextHitObject.StartTime - prevAlternatedHitObject.HitObject.StartTime;
+        var closestBeatSnapDivisor = TimingService.ClosestBeatSnapDivisor(distance, beatSnapLengths);
+        if (beatSnapLengths[closestBeatSnapDivisor] >= beatSnapLengths[SingletapSnapDivisor] 
+            && ResetOnSingletapSnapDivisor)
+            return (taikoHit.Color == TaikoColor.Red) ? RedDefaultHand : BlueDefaultHand;
+        
+        // otherwise alternate
+        return (prevAlternatedHitObject.HandAssignment == HandAssignment.LEFT) 
+            ? HandAssignment.RIGHT : HandAssignment.LEFT;
     }
 }

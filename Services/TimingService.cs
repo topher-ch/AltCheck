@@ -42,7 +42,9 @@ public class TimingService(AlternationService alternationService)
         return beatSnapLengths;
     }
 
-    public static BeatSnapDivisor ClosestBeatSnapDivisor(int distance, Dictionary<BeatSnapDivisor, double> beatSnapLengths)
+    public static BeatSnapDivisor ClosestBeatSnapDivisor(
+        double distance, 
+        Dictionary<BeatSnapDivisor, double> beatSnapLengths)
     {
         var closest = BeatSnapDivisor.SIXTEENTH;
         var closestDistance = double.MaxValue;
@@ -57,5 +59,10 @@ public class TimingService(AlternationService alternationService)
             closestDistance = candidateDistance;
         }
         return closest;
+    }
+
+    public static double BpmToBeatLength(double bpm)
+    {
+        return 240000 / bpm;
     }
 }

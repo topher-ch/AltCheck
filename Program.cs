@@ -4,6 +4,13 @@ using alternator_analyser.Models;
 using alternator_analyser.Services;
 
 var alternationService = new AlternationService();
+{
+    alternationService.RedDefaultHand = HandAssignment.RIGHT;
+    alternationService.BlueDefaultHand = HandAssignment.RIGHT;
+    alternationService.ResetOnFinishers = true;
+    alternationService.ResetOnSingletapSnapDivisor = false;
+    alternationService.SingletapSnapDivisor = BeatSnapDivisor.HALF;
+}
 var timingService = new TimingService(alternationService);
 var gameMonitorService = new GameMonitorService(timingService);
 

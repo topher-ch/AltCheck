@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("alternator_analyser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9423a154d4ce6ed67bcffcb16a5b8b3ba5eb1d1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c263aceaebfadfdc2331466a708bac75c54b8704")]
 [assembly: System.Reflection.AssemblyProductAttribute("alternator_analyser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("alternator_analyser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

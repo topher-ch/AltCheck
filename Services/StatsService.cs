@@ -35,7 +35,7 @@ public class StatsService
         Dictionary<BeatSnapDivisor, double> currentBeatSnapLengths = TimingService.TimingPointBeatSnapLengths(currentTimingPoint);
 
         BeatSnapDivisor beatSnapDivisors = 0;
-        HandAssignment patternHandStart = alternatedHitObjects[0].handAssignment;
+        HandAssignment patternHandStart = alternatedHitObjects[0].HandAssignment;
         int patternLength = 1;
         
         // Iterate through alternated hit objects
@@ -46,7 +46,7 @@ public class StatsService
             AlternationService.AlternatedHitObject nextHitObject = alternatedHitObjects[j + 1];
             
             // make sure the right timing point is being used
-            while (nextTimingPoint != null && prevHitObject.hitObject.StartTime < nextTimingPoint.Offset)
+            while (nextTimingPoint != null && prevHitObject.HitObject.StartTime < nextTimingPoint.Offset)
             {
                 currentTimingPoint = nextTimingPoint;
                 nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ? nonInheritedTimingPoints[i + 1] : null;
@@ -55,7 +55,7 @@ public class StatsService
             }
             
             // calculate distance and find the closest beat snap divisor
-            int distance = nextHitObject.hitObject.StartTime - prevHitObject.hitObject.StartTime;
+            int distance = nextHitObject.HitObject.StartTime - prevHitObject.HitObject.StartTime;
             BeatSnapDivisor closestBeatSnapDivisor = TimingService.ClosestBeatSnapDivisor(distance, currentBeatSnapLengths);
 
             // if it is not the end of a pattern, update length and divisors and continue to the next hitobjects
@@ -86,7 +86,7 @@ public class StatsService
             
             // then reset pattern trackers
             beatSnapDivisors = 0;
-            patternHandStart = nextHitObject.handAssignment;
+            patternHandStart = nextHitObject.HandAssignment;
             patternLength = 1;
         }
         return patternCounts;
