@@ -7,6 +7,11 @@ namespace alternator_analyser.Services;
 
 public class TimingService
 {
+    public void OnBeatmapChanged(string path)
+    {
+        Console.WriteLine(path);
+    }
+    
     public BeatSnapDivisor? MostCommonBeatSnapDivisor(Beatmap beatmap)
     {
         // Beat snap divisor counts initialized to 0
