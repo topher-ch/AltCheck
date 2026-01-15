@@ -6,162 +6,112 @@ namespace alternator_analyser.Services;
 
 public class StatsService
 {
+    public BeatSnapDivisor SingletapSnapDivisor;
+    public double? SingletapBeatLength;
+    
     public record Counts
     {
-        public int LeftCount { get; set; }
-        public int RightCount { get; set; }
-        public int BothCount { get; set; }
+        public int LCount { get; set; }
+        public int RCount { get; set; }
+        public int BCount { get; set; }
     }
 
-    public record BeatSnapDivisorCounts
+    public void OnBeatmapChanged(Beatmap beatmap, List<AlternationService.AlternatedHitObject> alternatedHitObjects)
     {
-        public BeatSnapDivisor BeatSnapDivisor { get; set; }
-        public required Counts Counts { get; set; }
-    }
-    
-    public Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> Stats(Beatmap beatmap, BeatSnapDivisor alternatedBeatSnapDivisor,
-        List<AlternationService.AlternatedHitObject> alternatedHitObjects)
-    {
-        Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> patternCounts =
-            new Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts>();
-
-        // Red-line timing points
-        List<TimingPoint> nonInheritedTimingPoints = TimingService.NonInheritedTimingPoints(beatmap);
-        if (nonInheritedTimingPoints.Count == 0)
-            return null;
-        int i = 0;
-        TimingPoint currentTimingPoint = nonInheritedTimingPoints[i];
-        TimingPoint? nextTimingPoint = (nonInheritedTimingPoints.Count > 1) ? nonInheritedTimingPoints[1] : null;
-        Dictionary<BeatSnapDivisor, double> currentBeatSnapLengths = TimingService.TimingPointBeatSnapLengths(currentTimingPoint);
-
-        BeatSnapDivisor beatSnapDivisors = 0;
-        HandAssignment patternHandStart = alternatedHitObjects[0].HandAssignment;
-        int patternLength = 1;
-        
-        // Iterate through alternated hit objects
-        for (int j = 0; j < alternatedHitObjects.Count - 1; j++)
+        var patternCounts = CountPatterns(beatmap, alternatedHitObjects, 10, 25);
+        foreach (var patternCount in patternCounts)
         {
-            // specify previous and next hit objects
-            AlternationService.AlternatedHitObject prevHitObject = alternatedHitObjects[j];
-            AlternationService.AlternatedHitObject nextHitObject = alternatedHitObjects[j + 1];
-            
-            // make sure the right timing point is being used
-            while (nextTimingPoint != null && prevHitObject.HitObject.StartTime < nextTimingPoint.Offset)
-            {
-                currentTimingPoint = nextTimingPoint;
-                nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ? nonInheritedTimingPoints[i + 1] : null;
-                i++;
-                currentBeatSnapLengths = TimingService.TimingPointBeatSnapLengths(currentTimingPoint);
-            }
-            
-            // calculate distance and find the closest beat snap divisor
-            int distance = nextHitObject.HitObject.StartTime - prevHitObject.HitObject.StartTime;
-            BeatSnapDivisor closestBeatSnapDivisor = TimingService.ClosestBeatSnapDivisor(distance, currentBeatSnapLengths);
+            Console.WriteLine($"Length: {patternCount.Key.Item1}, BeatSnapDivisors: {patternCount.Key.Item2}");
+            Console.WriteLine($"L: {patternCount.Value.LCount}, R: {patternCount.Value.RCount}, B: {patternCount.Value.BCount}");
+        }
+    }
 
-            // if it is not the end of a pattern, update length and divisors and continue to the next hitobjects
-            if (closestBeatSnapDivisor >= alternatedBeatSnapDivisor)
+    public Dictionary<(int, BeatSnapDivisor), Counts> CountPatterns(Beatmap beatmap, 
+        List<AlternationService.AlternatedHitObject> alternatedHitObjects, int lowerMarker, int upperMarker)
+    {
+        // get red lines and initialize first red line
+        var redLines = TimingService.NonInheritedTimingPoints(beatmap);
+        if (redLines.Count == 0)
+            throw new Exception();
+        var redLineIdx = 0;
+        var beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx]);
+        if (SingletapBeatLength is not null)
+            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value, beatSnapLengths);
+        // initialize dictionary taking the key "(length, beatSnapDivisorFlag)" to the value "Counts"
+        var patternCounts = new Dictionary<(int length, BeatSnapDivisor beatSnapDivisorFlags), Counts>();
+        var patternHandStart = alternatedHitObjects[0].HandAssignment;
+        var patternLength = 1;
+        BeatSnapDivisor beatSnapDivisors = 0;
+        // iterate through alternated hit objects
+        for (var i = 0; i < alternatedHitObjects.Count - 1; i++)
+        {
+            var prevHitObject = alternatedHitObjects[i];
+            var nextHitObject = alternatedHitObjects[i + 1];
+            // update red line if necessary
+            if (redLineIdx + 1 < redLines.Count
+                && prevHitObject.HitObject.StartTime >= redLines[redLineIdx + 1].Offset)
             {
+                beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx+1]);
+                if (SingletapBeatLength is not null)
+                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value, beatSnapLengths);
+                redLineIdx++;
+            }
+            // calculate distance and find closest beatSnapDivisor
+            var distance = nextHitObject.HitObject.StartTime - prevHitObject.HitObject.StartTime;
+            var closestBeatSnapDivisor = TimingService.ClosestBeatSnapDivisor(distance, beatSnapLengths);
+            // if the distance is smaller than the SingletapSnapDivisor, update length and divisors, then continue
+            if (beatSnapLengths[closestBeatSnapDivisor] < beatSnapLengths[SingletapSnapDivisor])
+            {
+                patternLength++;
                 beatSnapDivisors |= closestBeatSnapDivisor;
-                patternLength += 1;
                 continue;
             }
-
-            // otherwise, it is the end of a pattern, increment the respective count, initializing counts first if necessary
-            if (!patternCounts.ContainsKey((beatSnapDivisors, patternLength)))
-            {
-                patternCounts[(beatSnapDivisors, patternLength)] = new Counts();
-            }
+            // if the distance is larger than the SingletapSnapDivisor, increment the respective count
+            // first, clamp lengths larger than markers downwards to the closest marker
+            if (patternLength > upperMarker)
+                patternLength = upperMarker;
+            else if (patternLength > lowerMarker)
+                patternLength = lowerMarker;
+            // then, initialize counts if uninitialized
+            if (!patternCounts.ContainsKey((patternLength, beatSnapDivisors)))
+                patternCounts[(patternLength, beatSnapDivisors)] = new Counts();
+            // finally, increment the respective count
             switch (patternHandStart)
             {
                 case HandAssignment.LEFT:
-                    patternCounts[(beatSnapDivisors, patternLength)].LeftCount++;
+                    patternCounts[(patternLength, beatSnapDivisors)].LCount++;
                     break;
                 case HandAssignment.RIGHT:
-                    patternCounts[(beatSnapDivisors, patternLength)].RightCount++;
+                    patternCounts[(patternLength, beatSnapDivisors)].RCount++;
                     break;
                 case HandAssignment.BOTH:
-                    patternCounts[(beatSnapDivisors, patternLength)].BothCount++;
+                    patternCounts[(patternLength, beatSnapDivisors)].BCount++;
                     break;
             }
-            
-            // then reset pattern trackers
-            beatSnapDivisors = 0;
+            // reset pattern trackers
             patternHandStart = nextHitObject.HandAssignment;
             patternLength = 1;
+            beatSnapDivisors = 0;
+        }
+        // count the last pattern
+        if (patternLength > upperMarker)
+            patternLength = upperMarker;
+        else if (patternLength > lowerMarker)
+            patternLength = lowerMarker;
+        if (!patternCounts.ContainsKey((patternLength, beatSnapDivisors)))
+            patternCounts[(patternLength, beatSnapDivisors)] = new Counts();
+        switch (patternHandStart)
+        {
+            case HandAssignment.LEFT:
+                patternCounts[(patternLength, beatSnapDivisors)].LCount++;
+                break;
+            case HandAssignment.RIGHT:
+                patternCounts[(patternLength, beatSnapDivisors)].RCount++;
+                break;
+            case HandAssignment.BOTH:
+                patternCounts[(patternLength, beatSnapDivisors)].BCount++;
+                break;
         }
         return patternCounts;
-    }
-
-    public Counts OverallCounts(Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> counts)
-    {
-        Counts overall = new Counts();
-        foreach ((BeatSnapDivisor beatSnapDivisor, int length) in counts.Keys)
-        {
-            overall.LeftCount += counts[(beatSnapDivisor, length)].LeftCount;
-            overall.RightCount += counts[(beatSnapDivisor, length)].RightCount;
-            overall.BothCount += counts[(beatSnapDivisor, length)].BothCount;
-        }
-        return overall;
-    }
-    
-    public Counts OverallCountsNoSingletaps(Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> counts)
-    {
-        Counts overall = new Counts();
-        foreach ((BeatSnapDivisor beatSnapDivisor, int length) in counts.Keys)
-        {
-            if (beatSnapDivisor == 0)
-                continue;
-            overall.LeftCount += counts[(beatSnapDivisor, length)].LeftCount;
-            overall.RightCount += counts[(beatSnapDivisor, length)].RightCount;
-            overall.BothCount += counts[(beatSnapDivisor, length)].BothCount;
-        }
-        return overall;
-    }
-
-    public Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts> OverallCountsLengthBreakpoints(
-        Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts> counts, int[] boundaries)
-    {
-        List<(int min, int max)> ranges = BuildRanges(boundaries);
-        Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts> overall = 
-            new Dictionary<(BeatSnapDivisor beatSnapDivisor, (int min, int max)), Counts>();
-
-        foreach ((BeatSnapDivisor beatSnapDivisor, int length) in counts.Keys)
-        {
-            var range = FindRange(ranges, length);
-            if (!overall.ContainsKey((beatSnapDivisor, range)))
-            {
-                overall[(beatSnapDivisor, range)] = new Counts();
-            }
-            overall[(beatSnapDivisor, range)].LeftCount += counts[(beatSnapDivisor, length)].LeftCount;
-            overall[(beatSnapDivisor, range)].RightCount += counts[(beatSnapDivisor, length)].RightCount;
-            overall[(beatSnapDivisor, range)].BothCount += counts[(beatSnapDivisor, length)].BothCount;
-        }
-        return overall;
-    }
-
-    public List<(int min, int max)> BuildRanges(int[] boundaries)
-    {
-        var result = new List<(int min, int max)>();
-
-        for (int i = 0; i < boundaries.Length; i++)
-        {
-            int min = boundaries[i];
-            int max = (i + 1 < boundaries.Length) ? boundaries[i + 1] - 1 : int.MaxValue;
-            result.Add((min, max));
-        }
-
-        return result;
-    }
-
-    public (int min, int max) FindRange(List<(int min, int max)> ranges, int length)
-    {
-        foreach (var range in ranges)
-        {
-            if (length >= range.min && length <= range.max)
-            {
-                return range;
-            }
-        }
-        return (-1, -1);
     }
 }

@@ -3,7 +3,11 @@
 using alternator_analyser.Models;
 using alternator_analyser.Services;
 
-var alternationService = new AlternationService();
+var statsService = new StatsService();
+{
+    statsService.SingletapSnapDivisor = BeatSnapDivisor.HALF;
+}
+var alternationService = new AlternationService(statsService);
 {
     alternationService.RedDefaultHand = HandAssignment.RIGHT;
     alternationService.BlueDefaultHand = HandAssignment.RIGHT;

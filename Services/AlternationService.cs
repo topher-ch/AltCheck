@@ -6,7 +6,7 @@ using OsuParsers.Enums.Beatmaps;
 
 namespace alternator_analyser.Services;
 
-public class AlternationService
+public class AlternationService(StatsService statsService)
 {
     public HandAssignment RedDefaultHand;
     public HandAssignment BlueDefaultHand;
@@ -24,10 +24,7 @@ public class AlternationService
     public void OnBeatmapChanged(Beatmap beatmap)
     {
         var alternatedHitObjects = MapAlternatedHitObjects(beatmap);
-        foreach (var aho in alternatedHitObjects)
-        {
-            Console.WriteLine($"{aho.HitObject.StartTime}: {aho.HandAssignment}");
-        }
+        statsService.OnBeatmapChanged(beatmap, alternatedHitObjects);
     }
 
     public List<AlternatedHitObject> MapAlternatedHitObjects(Beatmap beatmap)
