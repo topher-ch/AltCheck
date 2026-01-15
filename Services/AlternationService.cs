@@ -18,13 +18,18 @@ public class AlternationService
         public HitObject hitObject { get; set; }
         public HandAssignment  handAssignment { get; set; }
     }
+
+    public void OnBeatmapChanged(Beatmap beatmap)
+    {
+        Console.WriteLine($"OnBeatmapChanged: {beatmap}");
+    }
     
     public List<AlternatedHitObject> MapAlternation(Beatmap beatmap, BeatSnapDivisor alternatedBeatSnapDivisor)
     {
         List<AlternatedHitObject> alternatedHitObjects = new List<AlternatedHitObject>();
         
         // Red-line timing points
-        List<TimingPoint> nonInheritedTimingPoints = TimingService.NoninheritedTimingPoints(beatmap);
+        List<TimingPoint> nonInheritedTimingPoints = TimingService.NonInheritedTimingPoints(beatmap);
         if (nonInheritedTimingPoints.Count == 0)
             return null;
         int i = 0;

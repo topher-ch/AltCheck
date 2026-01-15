@@ -1,85 +1,34 @@
-using System.Runtime.InteropServices;
+using System.Reflection.Metadata.Ecma335;
 using OsuParsers.Beatmaps;
 using alternator_analyser.Models;
 using OsuParsers.Beatmaps.Objects;
+using OsuParsers.Decoders;
+using OsuParsers.Enums;
 
 namespace alternator_analyser.Services;
 
-public class TimingService
+public class TimingService(AlternationService alternationService)
 {
     public void OnBeatmapChanged(string path)
     {
         Console.WriteLine(path);
-    }
-    
-    public BeatSnapDivisor? MostCommonBeatSnapDivisor(Beatmap beatmap)
-    {
-        // Beat snap divisor counts initialized to 0
-        Dictionary<BeatSnapDivisor, int> beatSnapDivisorCounts = new Dictionary<BeatSnapDivisor, int>();
-        foreach (BeatSnapDivisor beatSnapDivisor in Enum.GetValues<BeatSnapDivisor>())
-        {
-            beatSnapDivisorCounts.Add(beatSnapDivisor, 0);
-        }
-        
-        // Red-line timing points
-        List<TimingPoint> nonInheritedTimingPoints = NoninheritedTimingPoints(beatmap);
-        if (nonInheritedTimingPoints.Count == 0)
-            return null;
-        int i = 0;
-        TimingPoint currentTimingPoint = nonInheritedTimingPoints[i];
-        TimingPoint? nextTimingPoint = (nonInheritedTimingPoints.Count > 1) ? nonInheritedTimingPoints[1] : null;
-        Dictionary<BeatSnapDivisor, double> currentBeatSnapLengths = TimingPointBeatSnapLengths(currentTimingPoint);
-        
-        // Iterate through hit objects
-        for (int j = 0; j < beatmap.HitObjects.Count - 1; j++)
-        {
-            // specify current and next hit objects
-            HitObject prevHitObject = beatmap.HitObjects[j];
-            HitObject nextHitObject = beatmap.HitObjects[j + 1];
-            
-            // make sure the right timing point is being used
-            while (nextTimingPoint != null && prevHitObject.StartTime < nextTimingPoint.Offset)
-            {
-                currentTimingPoint = nextTimingPoint;
-                nextTimingPoint = (nonInheritedTimingPoints.Count > i + 1) ? nonInheritedTimingPoints[i + 1] : null;
-                i++;
-                currentBeatSnapLengths = TimingPointBeatSnapLengths(currentTimingPoint);
-            }
-
-            // calculate the distance, find the first beat snap divisor that the distance is larger than,
-            // and once found, increment and break
-            int distance = nextHitObject.StartTime - prevHitObject.StartTime;
-            BeatSnapDivisor closestBeatSnapDivisor = ClosestBeatSnapDivisor(distance, currentBeatSnapLengths);
-            beatSnapDivisorCounts[closestBeatSnapDivisor]++;
-        }
-        
-        // Find maximum count
-        BeatSnapDivisor runningMax = BeatSnapDivisor.WHOLE;
-        foreach (BeatSnapDivisor beatSnapDivisor in Enum.GetValues<BeatSnapDivisor>())
-        {
-            if (beatSnapDivisorCounts[beatSnapDivisor] >= beatSnapDivisorCounts[runningMax])
-                runningMax = beatSnapDivisor;
-        }
-        return runningMax;
+        var beatmap = BeatmapDecoder.Decode(path);
+        if (beatmap.GeneralSection.Mode != Ruleset.Taiko)
+            return;
+        alternationService.OnBeatmapChanged(beatmap);
     }
 
-    public static List<TimingPoint> NoninheritedTimingPoints(Beatmap beatmap)
+    public static List<TimingPoint> NonInheritedTimingPoints(Beatmap beatmap)
     {
-        List<TimingPoint> nonInheritedTimingPoints = new List<TimingPoint>();
-        foreach (TimingPoint timingPoint in beatmap.TimingPoints)
-        {
-            if (!timingPoint.Inherited)
-            {
-                nonInheritedTimingPoints.Add(timingPoint);
-            }
-        }
-        return nonInheritedTimingPoints;
+        return beatmap.TimingPoints
+            .Where(tp => !tp.Inherited)
+            .ToList();
     }
     
     public static Dictionary<BeatSnapDivisor, double> TimingPointBeatSnapLengths(TimingPoint redLine)
     {
-        Dictionary<BeatSnapDivisor, double> beatSnapLengths = new Dictionary<BeatSnapDivisor, double>();
-        double beatLength = redLine.BeatLength;
+        var beatSnapLengths = new Dictionary<BeatSnapDivisor, double>();
+        var beatLength = redLine.BeatLength;
         beatSnapLengths[BeatSnapDivisor.WHOLE] = beatLength;
         beatSnapLengths[BeatSnapDivisor.HALF] = beatLength / 2;
         beatSnapLengths[BeatSnapDivisor.THIRD] = beatLength / 3;
@@ -96,12 +45,18 @@ public class TimingService
 
     public static BeatSnapDivisor ClosestBeatSnapDivisor(int distance, Dictionary<BeatSnapDivisor, double> beatSnapLengths)
     {
-        foreach (BeatSnapDivisor beatSnapDivisor in Enum.GetValues<BeatSnapDivisor>())
+        var closest = BeatSnapDivisor.SIXTEENTH;
+        var closestDistance = double.MaxValue;
+        foreach (var divisor in Enum.GetValues<BeatSnapDivisor>())
         {
-            if (distance < beatSnapLengths[beatSnapDivisor] - 3)
+            var candidateDistance = distance - beatSnapLengths[divisor];
+            if (candidateDistance < -5)
                 continue;
-            return beatSnapDivisor;
+            if (candidateDistance > closestDistance)
+                continue;
+            closest = divisor;
+            closestDistance = candidateDistance;
         }
-        return BeatSnapDivisor.WHOLE;
+        return closest;
     }
 }

@@ -3,7 +3,8 @@
 using alternator_analyser.Models;
 using alternator_analyser.Services;
 
-var timingService = new TimingService();
+var alternationService = new AlternationService();
+var timingService = new TimingService(alternationService);
 var gameMonitorService = new GameMonitorService(timingService);
 
 while (true)

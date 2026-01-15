@@ -26,7 +26,7 @@ public class StatsService
             new Dictionary<(BeatSnapDivisor beatSnapDivisor, int length), Counts>();
 
         // Red-line timing points
-        List<TimingPoint> nonInheritedTimingPoints = TimingService.NoninheritedTimingPoints(beatmap);
+        List<TimingPoint> nonInheritedTimingPoints = TimingService.NonInheritedTimingPoints(beatmap);
         if (nonInheritedTimingPoints.Count == 0)
             return null;
         int i = 0;
