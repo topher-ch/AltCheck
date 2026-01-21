@@ -39,7 +39,7 @@ public class StatsService
             var prevHitObject = alternatedHitObjects[i];
             var nextHitObject = alternatedHitObjects[i + 1];
             // update red line if necessary
-            if (redLineIdx + 1 < redLines.Count
+            while (redLineIdx + 1 < redLines.Count
                 && prevHitObject.HitObject.StartTime >= redLines[redLineIdx + 1].Offset)
             {
                 beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx+1]);

@@ -38,7 +38,7 @@ public class AlternationService
         foreach (var hitObject in beatmap.HitObjects)
         {
             // update red line if necessary
-            if (prevAlternatedHitObject is not null
+            while (prevAlternatedHitObject is not null
                 && redLineIdx + 1 < redLines.Count
                 && prevAlternatedHitObject.HitObject.StartTime >= redLines[redLineIdx + 1].Offset)
             {
