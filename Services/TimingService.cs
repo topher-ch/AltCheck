@@ -1,8 +1,6 @@
 using OsuParsers.Beatmaps;
 using alternator_analyser.Models;
 using OsuParsers.Beatmaps.Objects;
-using OsuParsers.Decoders;
-using OsuParsers.Enums;
 
 namespace alternator_analyser.Services;
 

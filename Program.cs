@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using alternator_analyser.Control;
+﻿using alternator_analyser.Control;
 using alternator_analyser.Models;
 using alternator_analyser.Services;
 
@@ -19,14 +17,12 @@ var statsService = new StatsService();
     statsService.LowerMarker = 10;
     statsService.UpperMarker = 25;
 }
-
 var servicesController = new ServicesController(gameMonitorService, alternationService, statsService);
+var engine = new Engine(servicesController);
 
-while (true)
-{
-    var stats = await servicesController.GetStats(CancellationToken.None);
-    await Task.Delay(50);
-}
+// need to subscribe UI to the StatsUpdated Action
 
+var cts = new CancellationTokenSource();
+var runTask = engine.RunAsync(cts.Token);
 
-
+await Task.Delay(-1);
