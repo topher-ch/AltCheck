@@ -20,7 +20,6 @@ public class StatsService
     public Dictionary<(int, BeatSnapDivisor), Counts> CountPatterns(Beatmap beatmap, 
         List<AlternationService.AlternatedHitObject> alternatedHitObjects)
     {
-        // TODO: update SingletapSnapDivisor on red-lines if SingletapBeatLength non-null
         // get red lines and initialize first red line
         var redLines = TimingService.NonInheritedTimingPoints(beatmap);
         if (redLines.Count == 0)

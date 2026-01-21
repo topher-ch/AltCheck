@@ -23,7 +23,6 @@ public class AlternationService
 
     public List<AlternatedHitObject> MapAlternatedHitObjects(Beatmap beatmap)
     {
-        // TODO: update SingletapSnapDivisor on red-lines if SingletapBeatLength non-null
         // get red lines and initialize first red line
         var redLines = TimingService.NonInheritedTimingPoints(beatmap);
         if (redLines.Count == 0)
