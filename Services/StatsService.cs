@@ -8,6 +8,8 @@ public class StatsService
 {
     public BeatSnapDivisor SingletapSnapDivisor;
     public double? SingletapBeatLength;
+    public int LowerMarker;
+    public int UpperMarker;
     
     public record Counts
     {
@@ -16,19 +18,10 @@ public class StatsService
         public int BCount { get; set; }
     }
 
-    public void OnBeatmapChanged(Beatmap beatmap, List<AlternationService.AlternatedHitObject> alternatedHitObjects)
-    {
-        var patternCounts = CountPatterns(beatmap, alternatedHitObjects, 10, 25);
-        foreach (var patternCount in patternCounts)
-        {
-            Console.WriteLine($"Length: {patternCount.Key.Item1}, BeatSnapDivisors: {patternCount.Key.Item2}");
-            Console.WriteLine($"L: {patternCount.Value.LCount}, R: {patternCount.Value.RCount}, B: {patternCount.Value.BCount}");
-        }
-    }
-
     public Dictionary<(int, BeatSnapDivisor), Counts> CountPatterns(Beatmap beatmap, 
-        List<AlternationService.AlternatedHitObject> alternatedHitObjects, int lowerMarker, int upperMarker)
+        List<AlternationService.AlternatedHitObject> alternatedHitObjects)
     {
+        // TODO: update SingletapSnapDivisor on red-lines if SingletapBeatLength non-null
         // get red lines and initialize first red line
         var redLines = TimingService.NonInheritedTimingPoints(beatmap);
         if (redLines.Count == 0)
@@ -68,10 +61,10 @@ public class StatsService
             }
             // if the distance is larger than the SingletapSnapDivisor, increment the respective count
             // first, clamp lengths larger than markers downwards to the closest marker
-            if (patternLength > upperMarker)
-                patternLength = upperMarker;
-            else if (patternLength > lowerMarker)
-                patternLength = lowerMarker;
+            if (patternLength > UpperMarker)
+                patternLength = UpperMarker;
+            else if (patternLength > LowerMarker)
+                patternLength = LowerMarker;
             // then, initialize counts if uninitialized
             if (!patternCounts.ContainsKey((patternLength, beatSnapDivisors)))
                 patternCounts[(patternLength, beatSnapDivisors)] = new Counts();
@@ -94,10 +87,10 @@ public class StatsService
             beatSnapDivisors = 0;
         }
         // count the last pattern
-        if (patternLength > upperMarker)
-            patternLength = upperMarker;
-        else if (patternLength > lowerMarker)
-            patternLength = lowerMarker;
+        if (patternLength > UpperMarker)
+            patternLength = UpperMarker;
+        else if (patternLength > LowerMarker)
+            patternLength = LowerMarker;
         if (!patternCounts.ContainsKey((patternLength, beatSnapDivisors)))
             patternCounts[(patternLength, beatSnapDivisors)] = new Counts();
         switch (patternHandStart)

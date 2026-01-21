@@ -4,26 +4,20 @@ using System.Text.Json;
 
 namespace alternator_analyser.Services;
 
-public class GameMonitorService(TimingService timingService)
+public class GameMonitorService
 {
     private ClientWebSocket? _webSocket;
     private string? _currentBeatmapPath;
     
-    public async Task CheckForBeatmapChange(CancellationToken token)
+    public async Task<(bool, string?)> CheckForBeatmapChange(CancellationToken token)
     {
         var path = await CurrentBeatmapPath(token);
         if (path == null)
-            return;
-        if (path != _currentBeatmapPath)
-        {
-            _currentBeatmapPath = path;
-            BeatmapChanged(_currentBeatmapPath);
-        }
-    }
-
-    private void BeatmapChanged(string beatmapPath)
-    {
-        timingService.OnBeatmapChanged(beatmapPath);
+            return (false, null);
+        if (path == _currentBeatmapPath)
+            return (false, path);
+        _currentBeatmapPath = path;
+        return (true, path);
     }
 
     private async Task<string?> CurrentBeatmapPath(CancellationToken token)

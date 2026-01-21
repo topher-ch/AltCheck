@@ -6,7 +6,7 @@ using OsuParsers.Enums.Beatmaps;
 
 namespace alternator_analyser.Services;
 
-public class AlternationService(StatsService statsService)
+public class AlternationService
 {
     public HandAssignment RedDefaultHand;
     public HandAssignment BlueDefaultHand;
@@ -21,14 +21,9 @@ public class AlternationService(StatsService statsService)
         public readonly HandAssignment HandAssignment = handAssignment;
     }
 
-    public void OnBeatmapChanged(Beatmap beatmap)
-    {
-        var alternatedHitObjects = MapAlternatedHitObjects(beatmap);
-        statsService.OnBeatmapChanged(beatmap, alternatedHitObjects);
-    }
-
     public List<AlternatedHitObject> MapAlternatedHitObjects(Beatmap beatmap)
     {
+        // TODO: update SingletapSnapDivisor on red-lines if SingletapBeatLength non-null
         // get red lines and initialize first red line
         var redLines = TimingService.NonInheritedTimingPoints(beatmap);
         if (redLines.Count == 0)

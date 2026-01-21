@@ -6,17 +6,8 @@ using OsuParsers.Enums;
 
 namespace alternator_analyser.Services;
 
-public class TimingService(AlternationService alternationService)
+public static class TimingService
 {
-    public void OnBeatmapChanged(string path)
-    {
-        Console.WriteLine(path);
-        var beatmap = BeatmapDecoder.Decode(path);
-        if (beatmap.GeneralSection.Mode != Ruleset.Taiko)
-            return;
-        alternationService.OnBeatmapChanged(beatmap);
-    }
-
     public static List<TimingPoint> NonInheritedTimingPoints(Beatmap beatmap)
     {
         return beatmap.TimingPoints
