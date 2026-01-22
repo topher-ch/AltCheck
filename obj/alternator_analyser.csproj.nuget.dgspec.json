@@ -44,6 +44,18 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.3.11, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.3.11, )"
+            },
+            "LiveChartsCore.SkiaSharpView.Avalonia": {
+              "target": "Package",
+              "version": "[2.0.0-rc6.1, )"
+            },
             "OsuMemoryDataProvider": {
               "target": "Package",
               "version": "[0.11.1, )"
