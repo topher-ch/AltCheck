@@ -27,7 +27,6 @@ public partial class App : Application
             alternationService.ResetOnFinishers = true;
             alternationService.ResetOnSingletapSnapDivisor = false;
             alternationService.SingletapSnapDivisor = BeatSnapDivisor.HALF;
-
             var statsService = new StatsService();
             statsService.SingletapSnapDivisor = BeatSnapDivisor.HALF;
             statsService.LowerMarker = 10;
