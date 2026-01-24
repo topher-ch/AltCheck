@@ -1,4 +1,9 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="alternator_analyser.App">
+             xmlns:semi="https://irihi.tech/semi"
+             x:Class="alternator_analyser.App"
+             RequestedThemeVariant="Dark">
+    <Application.Styles>
+        <semi:SemiTheme Locale="English"/>
+    </Application.Styles>
 </Application>

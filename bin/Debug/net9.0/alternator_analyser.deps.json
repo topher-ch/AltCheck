@@ -12,7 +12,8 @@
           "Avalonia.Desktop": "11.3.11",
           "LiveChartsCore.SkiaSharpView.Avalonia": "2.0.0-rc6.1",
           "OsuMemoryDataProvider": "0.11.1",
-          "OsuParsers": "1.7.2"
+          "OsuParsers": "1.7.2",
+          "Semi.Avalonia": "11.3.7.2"
         },
         "runtime": {
           "alternator_analyser.dll": {}
@@ -369,6 +370,17 @@
           }
         }
       },
+      "Semi.Avalonia/11.3.7.2": {
+        "dependencies": {
+          "Avalonia": "11.3.11"
+        },
+        "runtime": {
+          "lib/net8.0/Semi.Avalonia.dll": {
+            "assemblyVersion": "11.3.7.2",
+            "fileVersion": "11.3.7.2"
+          }
+        }
+      },
       "SkiaSharp/2.88.9": {
         "dependencies": {
           "SkiaSharp.NativeAssets.Win32": "2.88.9",
@@ -631,6 +643,13 @@
       "sha512": "sha512-0flwDLpXqlnX/EO6zaH2bBpW1/UUt9njT21J+1KUWncV9Fvqu0ULC+y6ehvBzVRicqUacVjxsEmlGBxlx19QDw==",
       "path": "processmemorydatafinder/0.9.0",
       "hashPath": "processmemorydatafinder.0.9.0.nupkg.sha512"
+    },
+    "Semi.Avalonia/11.3.7.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OPK5QNc1ncnvNeAZZTaLyLM0kxWeRKiAvKatkIHlJKSlQu64mtnfBOYpjun1iUkWG9WnTFwWlsC3t4KCq7mWYQ==",
+      "path": "semi.avalonia/11.3.7.2",
+      "hashPath": "semi.avalonia.11.3.7.2.nupkg.sha512"
     },
     "SkiaSharp/2.88.9": {
       "type": "package",

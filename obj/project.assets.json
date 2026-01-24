@@ -475,6 +475,18 @@
           "lib/net8.0/ProcessMemoryDataFinder.dll": {}
         }
       },
+      "Semi.Avalonia/11.3.7.2": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia": "11.3.7"
+        },
+        "compile": {
+          "lib/net8.0/Semi.Avalonia.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Semi.Avalonia.dll": {}
+        }
+      },
       "SkiaSharp/2.88.9": {
         "type": "package",
         "dependencies": {
@@ -1336,6 +1348,23 @@
         "processmemorydatafinder.nuspec"
       ]
     },
+    "Semi.Avalonia/11.3.7.2": {
+      "sha512": "OPK5QNc1ncnvNeAZZTaLyLM0kxWeRKiAvKatkIHlJKSlQu64mtnfBOYpjun1iUkWG9WnTFwWlsC3t4KCq7mWYQ==",
+      "type": "package",
+      "path": "semi.avalonia/11.3.7.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "irihi.png",
+        "lib/net6.0/Semi.Avalonia.dll",
+        "lib/net8.0/Semi.Avalonia.dll",
+        "lib/netstandard2.0/Semi.Avalonia.dll",
+        "semi.avalonia.11.3.7.2.nupkg.sha512",
+        "semi.avalonia.nuspec"
+      ]
+    },
     "SkiaSharp/2.88.9": {
       "sha512": "3MD5VHjXXieSHCleRLuaTXmL2pD0mB7CcOB1x2kA1I4bhptf4e3R27iM93264ZYuAq6mkUyX5XbcxnZvMJYc1Q==",
       "type": "package",
@@ -1661,7 +1690,8 @@
       "Avalonia.Desktop >= 11.3.11",
       "LiveChartsCore.SkiaSharpView.Avalonia >= 2.0.0-rc6.1",
       "OsuMemoryDataProvider >= 0.11.1",
-      "OsuParsers >= 1.7.2"
+      "OsuParsers >= 1.7.2",
+      "Semi.Avalonia >= 11.3.7.2"
     ]
   },
   "packageFolders": {
@@ -1726,6 +1756,10 @@
           "OsuParsers": {
             "target": "Package",
             "version": "[1.7.2, )"
+          },
+          "Semi.Avalonia": {
+            "target": "Package",
+            "version": "[11.3.7.2, )"
           }
         },
         "imports": [

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sxaUuae1nnE=",
+  "dgSpecHash": "pV7C+VH7fDU=",
   "success": true,
   "projectFilePath": "C:\\Users\\chris\\RiderProjects\\alternator_analyzer\\alternator_analyser.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "C:\\Users\\chris\\.nuget\\packages\\osumemorydataprovider\\0.11.1\\osumemorydataprovider.0.11.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\osuparsers\\1.7.2\\osuparsers.1.7.2.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\processmemorydatafinder\\0.9.0\\processmemorydatafinder.0.9.0.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\semi.avalonia\\11.3.7.2\\semi.avalonia.11.3.7.2.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\skiasharp\\2.88.9\\skiasharp.2.88.9.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.9\\skiasharp.harfbuzz.2.88.9.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\skiasharp.nativeassets.linux\\2.88.9\\skiasharp.nativeassets.linux.2.88.9.nupkg.sha512",
