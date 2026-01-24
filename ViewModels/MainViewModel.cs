@@ -90,4 +90,107 @@ public class MainViewModel : INotifyPropertyChanged
             _controller.ChangeResetOnSingletapSnapDivisor(_resetOnSnap);
         }
     }
+
+    public string SnapDivisorTitle { get; } = "Snap";
+    public string[] SnapDivisorOptions { get; } =
+        ["1/1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9", "1/12", "1/16"];
+    public double SnapDivisorOpacity { get; set; } = 1;
+    private int _snapDivisor = 3;
+    public int SnapDivisor
+    {
+        get => _snapDivisor;
+        set
+        {
+            if (_snapDivisor == value)
+                return;
+            _snapDivisor = value;
+            _snapBpm = null;
+            SnapDivisorOpacity = 1;
+            SnapBpmOpacity = 0.5;
+            RaisePropertyChanged(nameof(SnapDivisor));
+            RaisePropertyChanged(nameof(SnapBpm));
+            RaisePropertyChanged(nameof(SnapDivisorOpacity));
+            RaisePropertyChanged(nameof(SnapBpmOpacity));
+            _controller.ChangeSingletapSnapDivisor(IntToBeatSnapDivisor(_snapDivisor));
+            _controller.ChangeSingletapSnapDivisorByBpm(null);
+        }
+    }
+
+    private static BeatSnapDivisor IntToBeatSnapDivisor(int n)
+    {
+        BeatSnapDivisor[] beatSnapDivisors =
+        [
+            BeatSnapDivisor.WHOLE, BeatSnapDivisor.HALF, BeatSnapDivisor.THIRD, BeatSnapDivisor.QUARTER,
+            BeatSnapDivisor.FIFTH, BeatSnapDivisor.SIXTH, BeatSnapDivisor.SEVENTH, BeatSnapDivisor.EIGHTH,
+            BeatSnapDivisor.NINTH, BeatSnapDivisor.TWELFTH, BeatSnapDivisor.SIXTEENTH
+        ];
+        return beatSnapDivisors[n];
+    }
+
+    public string SnapBpmTitle { get; } = "Snap by BPM";
+    public double SnapBpmOpacity { get; set; } = 0.5;
+    private int? _snapBpm = null;
+    public string SnapBpm
+    {
+        get
+        {
+            if (_snapBpm == null)
+                return "";
+            return _snapBpm.Value.ToString();
+        }
+        set
+        {
+            if (!int.TryParse(value, out var bpm))
+                return;
+            if (bpm < 0 || bpm > 500)
+                return;
+            if (_snapBpm == bpm)
+                return;
+            _snapBpm = bpm;
+            SnapBpmOpacity = 1;
+            SnapDivisorOpacity = 0.5;
+            RaisePropertyChanged(nameof(SnapBpm));
+            RaisePropertyChanged(nameof(SnapBpmOpacity));
+            RaisePropertyChanged(nameof(SnapDivisorOpacity));
+            _controller.ChangeSingletapSnapDivisorByBpm(_snapBpm);
+        }
+    }
+
+    public string LowerMarkerTitle { get; } = "Lower";
+    private int _lowerMarker = 10;
+    public string LowerMarker
+    {
+        get => _lowerMarker.ToString();
+        set
+        {
+            if (!int.TryParse(value, out var lower))
+                return;
+            if (lower < 0 || lower > 500 || lower > _upperMarker)
+                return;
+            if (_lowerMarker == lower)
+                return;
+            _lowerMarker = lower;
+            RaisePropertyChanged(nameof(LowerMarker));
+            _controller.ChangeLowerMarker(_lowerMarker);
+        }
+    }
+    
+    public string UpperMarkerTitle { get; } = "Upper";
+    private int _upperMarker = 25;
+    public string UpperMarker
+    {
+        get => _upperMarker.ToString();
+        set
+        {
+            if (!int.TryParse(value, out var upper))
+                return;
+            if (upper < 0 || upper > 500 || upper < _lowerMarker)
+                return;
+            if (_upperMarker == upper)
+                return;
+            _upperMarker = upper;
+            RaisePropertyChanged(nameof(UpperMarker));
+            _controller.ChangeUpperMarker(_upperMarker);
+        }
+    }
 }
