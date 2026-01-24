@@ -36,11 +36,8 @@ public partial class App : Application
             var engine = new Engine(servicesController);
 
             var mainViewModel = new MainViewModel(servicesController, engine);
-            
-            var mainWindow = new MainWindow
-            {
-                DataContext = mainViewModel
-            };
+
+            var mainWindow = new MainWindow(mainViewModel);
 
             desktop.MainWindow = mainWindow;
             

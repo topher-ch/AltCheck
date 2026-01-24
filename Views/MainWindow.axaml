@@ -2,24 +2,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:alternator_analyser.ViewModels"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="500"
         x:Class="alternator_analyser.Views.MainWindow"
         Title="Alternator Analyser"
         Width="1000"
         Height="500">
+        
+        <!--<Window.DataContext>
+                <viewModels:MainViewModel/>
+        </Window.DataContext>-->
+        
         <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto">
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Don"></TextBlock>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="Kat"></TextBlock>
-                <ComboBox Grid.Row="1" Grid.Column="0" SelectedIndex="1" Width="100" Height="32">
-                        <ComboBoxItem>Left</ComboBoxItem>
-                        <ComboBoxItem>Right</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="1" Width="100" Height="32">
-                        <ComboBoxItem>Left</ComboBoxItem>
-                        <ComboBoxItem>Right</ComboBoxItem>
-                </ComboBox>
-                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset on Finisher" IsChecked="True"></CheckBox>
-                <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset on Snap" IsChecked="True"></CheckBox>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DonHandTitle}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding KatHandTitle}"/>
+                
+                <ComboBox Grid.Row="1" Grid.Column="0" Width="100" Height="32"
+                          SelectedIndex="{Binding DonHand}"
+                          ItemsSource="{Binding DonHandOptions}"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Height="32"
+                          SelectedIndex="{Binding KatHand}"
+                          ItemsSource="{Binding KatHandOptions}"/>
+                
+                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                          Content="{Binding ResetOnFinisherTitle}" 
+                          IsChecked="{Binding ResetOnFinisher}"/>
+                <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                          Content="{Binding ResetOnSnapTitle}" 
+                          IsChecked="{Binding ResetOnSnap}"/>
+                
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Snap"></TextBlock>
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="Snap by BPM"></TextBlock>
                 <ComboBox Grid.Row="5" Grid.Column="0" SelectedIndex="3" Width="100" Height="32">
