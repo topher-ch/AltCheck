@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
         xmlns:viewModels="clr-namespace:alternator_analyser.ViewModels"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="500"
         x:Class="alternator_analyser.Views.MainWindow"
@@ -13,45 +14,134 @@
                 <viewModels:MainViewModel/>
         </Window.DataContext>-->
         
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto">
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DonHandTitle}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding KatHandTitle}"/>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto">
+                <lvc:CartesianChart Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Width="800" Height="500" 
+                                    LegendPosition="Right"
+                                    TooltipPosition="Hidden">
+                    <lvc:CartesianChart.YAxes>
+                        <lvc:XamlAxis
+                            AxisName="L                          R"
+                            MinLimit="{Binding NegativeAxisMinOrMax}"
+                            MaxLimit="{Binding PositiveAxisMinOrMax}"/>
+                    </lvc:CartesianChart.YAxes>
+                    
+                    <lvc:CartesianChart.XAxes>
+                        <lvc:XamlAxis AxisName="Length"/>
+                    </lvc:CartesianChart.XAxes>
+                    
+                    <lvc:CartesianChart.Series>
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding ThirdName}"
+                            Values="{Binding ThirdLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#B42019"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding ThirdRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#B42019"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding QuarterName}"
+                            Values="{Binding QuarterLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#731F8A"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding QuarterRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#731F8A"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding SixthName}"
+                            Values="{Binding SixthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#29368E"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding SixthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#29368E"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding EighthName}"
+                            Values="{Binding EighthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#07776F"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding EighthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#07776F"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                    </lvc:CartesianChart.Series>
+                </lvc:CartesianChart>
+            
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DonHandTitle}"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding KatHandTitle}"/>
                 
-                <ComboBox Grid.Row="1" Grid.Column="0" Width="100" Height="32"
+                <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Height="32"
                           SelectedIndex="{Binding DonHand}"
                           ItemsSource="{Binding DonHandOptions}"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Height="32"
+                <ComboBox Grid.Row="1" Grid.Column="2" Width="100" Height="32"
                           SelectedIndex="{Binding KatHand}"
                           ItemsSource="{Binding KatHandOptions}"/>
                 
-                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
                           Content="{Binding ResetOnFinisherTitle}" 
                           IsChecked="{Binding ResetOnFinisher}"/>
-                <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
                           Content="{Binding ResetOnSnapTitle}" 
                           IsChecked="{Binding ResetOnSnap}"/>
                 
-                <TextBlock Grid.Row="4" Grid.Column="0" 
-                           Text="{Binding SnapDivisorTitle}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1" 
+                           Text="{Binding SnapDivisorTitle}"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" 
                            Text="{Binding SnapBpmTitle}"/>
                 
-                <ComboBox Grid.Row="5" Grid.Column="0" Width="100" Height="32"
+                <ComboBox Grid.Row="5" Grid.Column="1" Width="100" Height="32"
                           Opacity="{Binding SnapDivisorOpacity}"
                           SelectedIndex="{Binding SnapDivisor}"
                           ItemsSource="{Binding SnapDivisorOptions}"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Width="100" Height="32" VerticalAlignment="Top"
+                <TextBox Grid.Row="5" Grid.Column="2" Width="100" Height="32" VerticalAlignment="Top"
                          Opacity="{Binding SnapBpmOpacity}"
                          Text="{Binding SnapBpm, UpdateSourceTrigger=LostFocus}"/>
                 
-                <TextBlock Grid.Row="6" Grid.Column="0" 
-                           Text="{Binding LowerMarkerTitle}"/>
                 <TextBlock Grid.Row="6" Grid.Column="1" 
+                           Text="{Binding LowerMarkerTitle}"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" 
                            Text="{Binding UpperMarkerTitle}"/>
                 
-                <TextBox Grid.Row="7" Grid.Column="0" Width="100" Height="32" VerticalAlignment="Top" 
-                         Text="{Binding LowerMarker, UpdateSourceTrigger=LostFocus}"/>
                 <TextBox Grid.Row="7" Grid.Column="1" Width="100" Height="32" VerticalAlignment="Top" 
+                         Text="{Binding LowerMarker, UpdateSourceTrigger=LostFocus}"/>
+                <TextBox Grid.Row="7" Grid.Column="2" Width="100" Height="32" VerticalAlignment="Top" 
                          Text="{Binding UpperMarker, UpdateSourceTrigger=LostFocus}"/>
         </Grid>
 </Window>
