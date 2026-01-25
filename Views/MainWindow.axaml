@@ -17,7 +17,8 @@
         <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto">
                 <lvc:CartesianChart Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Width="800" Height="500" 
                                     LegendPosition="Right"
-                                    TooltipPosition="Hidden">
+                                    TooltipPosition="Hidden"
+                                    XAxes="{Binding XAxes}">
                     <lvc:CartesianChart.YAxes>
                         <lvc:XamlAxis
                             AxisName="L                          R"
@@ -25,11 +26,43 @@
                             MaxLimit="{Binding PositiveAxisMinOrMax}"/>
                     </lvc:CartesianChart.YAxes>
                     
-                    <lvc:CartesianChart.XAxes>
-                        <lvc:XamlAxis AxisName="Length"/>
-                    </lvc:CartesianChart.XAxes>
-                    
                     <lvc:CartesianChart.Series>
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding WholeName}"
+                            Values="{Binding WholeLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#678D09"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding WholeRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#678D09"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding HalfName}"
+                            Values="{Binding HalfLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#277731"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding HalfRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#277731"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
                         <lvc:XamlStackedColumnSeries
                             SeriesName="{Binding ThirdName}"
                             Values="{Binding ThirdLeftValues}"
@@ -67,6 +100,24 @@
                         </lvc:XamlStackedColumnSeries>
                         
                         <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding FifthName}"
+                            Values="{Binding FifthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#A88E0A"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding FifthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#A88E0A"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
                             SeriesName="{Binding SixthName}"
                             Values="{Binding SixthLeftValues}"
                             StackGroup="0">
@@ -85,6 +136,24 @@
                         </lvc:XamlStackedColumnSeries>
                         
                         <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding SeventhName}"
+                            Values="{Binding SeventhLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#A41751"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding SeventhRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#A41751"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
                             SeriesName="{Binding EighthName}"
                             Values="{Binding EighthLeftValues}"
                             StackGroup="0">
@@ -99,6 +168,60 @@
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
                                 <lvc:SolidColorPaint Color="#07776F"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding NinthName}"
+                            Values="{Binding NinthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#0A6C7B"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding NinthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#0A6C7B"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding TwelfthName}"
+                            Values="{Binding TwelfthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#135CB8"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding TwelfthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#135CB8"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            SeriesName="{Binding SixteenthName}"
+                            Values="{Binding SixteenthLeftValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#41464C"></lvc:SolidColorPaint>
+                            </lvc:XamlStackedColumnSeries.Fill>
+                        </lvc:XamlStackedColumnSeries>
+                        
+                        <lvc:XamlStackedColumnSeries
+                            IsVisibleAtLegend="False"
+                            Values="{Binding SixteenthRightValues}"
+                            StackGroup="0">
+                            <lvc:XamlStackedColumnSeries.Fill>
+                                <lvc:SolidColorPaint Color="#41464C"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                     </lvc:CartesianChart.Series>

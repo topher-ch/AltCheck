@@ -2,6 +2,7 @@
 using alternator_analyser.Control;
 using alternator_analyser.Models;
 using alternator_analyser.Services;
+using LiveChartsCore.SkiaSharpView;
 
 namespace alternator_analyser.ViewModels;
 
@@ -19,7 +20,24 @@ public class MainViewModel : INotifyPropertyChanged
         _engine.StatsUpdated += OnStatsUpdated;
     }
 
-    public string[] AxisLabels { get; set; } = ["2", "3", "4", "5", "6", "7", "8", "9", "10-24", "25+"];
+    private Axis[] _xAxes = 
+    [
+        new Axis
+        {
+            Name = "Length",
+            Labels = ["2", "3", "4", "5", "6", "7", "8", "9", "10-24", "25+"]
+        }
+    ];
+    public Axis[] XAxes
+    {
+        get => _xAxes;
+        set
+        {
+            _xAxes = value;
+            RaisePropertyChanged(nameof(XAxes));
+        }
+    }
+    
     public int PositiveAxisMinOrMax { get; set; } = 50;
     public int NegativeAxisMinOrMax { get; set; } = -50;
     
@@ -131,7 +149,14 @@ public class MainViewModel : INotifyPropertyChanged
         axisLabels[_lowerMarker - 2] = _lowerMarker + "-" + (_upperMarker - 1);
         axisLabels[_lowerMarker - 1] = _upperMarker + "+";
 
-        AxisLabels = axisLabels;
+        XAxes =
+        [
+            new Axis
+            {
+                Name = "Length",
+                Labels = axisLabels
+            }
+        ];
         PositiveAxisMinOrMax = axisMinOrMax;
         NegativeAxisMinOrMax = -axisMinOrMax;
         
@@ -179,7 +204,6 @@ public class MainViewModel : INotifyPropertyChanged
         SixteenthRightValues = chartValues[10][1];
         SixteenthBothValues = chartValues[10][2];
         
-        RaisePropertyChanged(nameof(AxisLabels));
         RaisePropertyChanged(nameof(PositiveAxisMinOrMax));
         RaisePropertyChanged(nameof(NegativeAxisMinOrMax));
         
