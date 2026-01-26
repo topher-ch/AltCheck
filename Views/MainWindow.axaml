@@ -32,7 +32,7 @@
                             Values="{Binding WholeLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#678D09"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#555B61"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -41,7 +41,7 @@
                             Values="{Binding WholeRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#678D09"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#555B61"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -50,7 +50,7 @@
                             Values="{Binding HalfLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#277731"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0E8999"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -59,7 +59,7 @@
                             Values="{Binding HalfRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#277731"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0E8999"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -68,7 +68,7 @@
                             Values="{Binding ThirdLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#B42019"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#89289F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -77,7 +77,7 @@
                             Values="{Binding ThirdRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#B42019"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#89289F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -86,7 +86,7 @@
                             Values="{Binding QuarterLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#731F8A"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D73324"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -95,7 +95,7 @@
                             Values="{Binding QuarterRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#731F8A"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D73324"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -104,7 +104,7 @@
                             Values="{Binding FifthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#A88E0A"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#C72261"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -113,7 +113,7 @@
                             Values="{Binding FifthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#A88E0A"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#C72261"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -122,7 +122,7 @@
                             Values="{Binding SixthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#29368E"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#3444A3"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -131,7 +131,7 @@
                             Values="{Binding SixthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#29368E"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#3444A3"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -140,7 +140,7 @@
                             Values="{Binding SeventhLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#A41751"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D2AF0F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -149,7 +149,7 @@
                             Values="{Binding SeventhRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#A41751"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D2AF0F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -158,7 +158,7 @@
                             Values="{Binding EighthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#07776F"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#32953D"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -167,7 +167,7 @@
                             Values="{Binding EighthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#07776F"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#32953D"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -176,7 +176,7 @@
                             Values="{Binding NinthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#0A6C7B"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0A9588"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -185,7 +185,7 @@
                             Values="{Binding NinthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#0A6C7B"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0A9588"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -194,7 +194,7 @@
                             Values="{Binding TwelfthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#135CB8"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D56F0F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -203,7 +203,7 @@
                             Values="{Binding TwelfthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#135CB8"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#D56F0F"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -212,7 +212,7 @@
                             Values="{Binding SixteenthLeftValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#41464C"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0A81CC"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                         
@@ -221,7 +221,7 @@
                             Values="{Binding SixteenthRightValues}"
                             StackGroup="0">
                             <lvc:XamlStackedColumnSeries.Fill>
-                                <lvc:SolidColorPaint Color="#41464C"></lvc:SolidColorPaint>
+                                <lvc:SolidColorPaint Color="#0A81CC"></lvc:SolidColorPaint>
                             </lvc:XamlStackedColumnSeries.Fill>
                         </lvc:XamlStackedColumnSeries>
                     </lvc:CartesianChart.Series>
