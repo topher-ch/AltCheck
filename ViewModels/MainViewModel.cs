@@ -132,6 +132,7 @@ public class MainViewModel : INotifyPropertyChanged
             chartValues[beatSnapDivisorIdx][1][lengthIdx] += stat.Value.RCount;
             chartValues[beatSnapDivisorIdx][2][lengthIdx] += stat.Value.BCount;
 
+            // TODO: change this so that it totals, for a given length, all beatSnapDivisors
             while (axisMinOrMax < -chartValues[beatSnapDivisorIdx][0][lengthIdx]
                    || axisMinOrMax < chartValues[beatSnapDivisorIdx][1][lengthIdx]
                    || axisMinOrMax < chartValues[beatSnapDivisorIdx][2][lengthIdx])
