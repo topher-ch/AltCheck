@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kEjeyKZyhPQ=",
+  "dgSpecHash": "ghxlw7svWJw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\chris\\RiderProjects\\alternator_analyzer\\AltCheck.csproj",
+  "projectFilePath": "C:\\Users\\chris\\RiderProjects\\AltCheck\\AltCheck.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chris\\.nuget\\packages\\avalonia\\11.3.11\\avalonia.11.3.11.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.25547.20250602\\avalonia.angle.windows.natives.2.1.25547.20250602.nupkg.sha512",

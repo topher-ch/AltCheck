@@ -1700,11 +1700,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chris\\RiderProjects\\alternator_analyzer\\AltCheck.csproj",
+      "projectUniqueName": "C:\\Users\\chris\\RiderProjects\\AltCheck\\AltCheck.csproj",
       "projectName": "AltCheck",
-      "projectPath": "C:\\Users\\chris\\RiderProjects\\alternator_analyzer\\AltCheck.csproj",
+      "projectPath": "C:\\Users\\chris\\RiderProjects\\AltCheck\\AltCheck.csproj",
       "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chris\\RiderProjects\\alternator_analyzer\\obj\\",
+      "outputPath": "C:\\Users\\chris\\RiderProjects\\AltCheck\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
