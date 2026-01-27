@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 
-namespace alternator_analyser;
+namespace AltCheck;
 
 internal static class Program
 {

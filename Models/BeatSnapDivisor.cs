@@ -1,4 +1,4 @@
-namespace alternator_analyser.Models;
+namespace AltCheck.Models;
 
 [Flags]
 public enum BeatSnapDivisor

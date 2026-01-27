@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "alternator_analyser", "alternator_analyser.csproj", "{7F1857B1-6FDF-47C3-9350-EDA694DF22CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltCheck", "AltCheck.csproj", "{7F1857B1-6FDF-47C3-9350-EDA694DF22CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

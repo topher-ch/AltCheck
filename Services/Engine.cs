@@ -1,7 +1,7 @@
-﻿using alternator_analyser.Control;
-using alternator_analyser.Models;
+﻿using AltCheck.Control;
+using AltCheck.Models;
 
-namespace alternator_analyser.Services;
+namespace AltCheck.Services;
 
 public class Engine
 {

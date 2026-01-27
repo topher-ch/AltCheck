@@ -1,8 +1,8 @@
+using AltCheck.Models;
 using OsuParsers.Beatmaps;
-using alternator_analyser.Models;
 using OsuParsers.Beatmaps.Objects;
 
-namespace alternator_analyser.Services;
+namespace AltCheck.Services;
 
 public static class TimingService
 {

@@ -1,7 +1,7 @@
-using alternator_analyser.Models;
+using AltCheck.Models;
 using OsuParsers.Beatmaps;
 
-namespace alternator_analyser.Services;
+namespace AltCheck.Services;
 
 public class StatsService
 {

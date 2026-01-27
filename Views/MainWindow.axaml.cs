@@ -1,7 +1,7 @@
-﻿using alternator_analyser.ViewModels;
+﻿using AltCheck.ViewModels;
 using Avalonia.Controls;
 
-namespace alternator_analyser.Views;
+namespace AltCheck.Views;
 
 public partial class MainWindow : Window
 {

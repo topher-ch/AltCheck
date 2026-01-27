@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
-using alternator_analyser.Control;
-using alternator_analyser.Models;
-using alternator_analyser.Services;
+using AltCheck.Control;
+using AltCheck.Models;
+using AltCheck.Services;
 using LiveChartsCore.SkiaSharpView;
 
-namespace alternator_analyser.ViewModels;
+namespace AltCheck.ViewModels;
 
 public class MainViewModel : INotifyPropertyChanged
 {

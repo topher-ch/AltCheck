@@ -1,4 +1,4 @@
-namespace alternator_analyser.Models;
+namespace AltCheck.Models;
 
 public enum HandAssignment
 {

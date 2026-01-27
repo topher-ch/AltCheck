@@ -2,7 +2,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
-namespace alternator_analyser.Services;
+namespace AltCheck.Services;
 
 public class GameMonitorService
 {

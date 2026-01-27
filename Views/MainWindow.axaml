@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
         mc:Ignorable="d" d:DesignWidth="1030" d:DesignHeight="500"
-        x:Class="alternator_analyser.Views.MainWindow"
+        x:Class="AltCheck.Views.MainWindow"
         Title="AltCheck"
         Width="1030"
         Height="500"

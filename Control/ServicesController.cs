@@ -1,9 +1,9 @@
-﻿using alternator_analyser.Models;
-using alternator_analyser.Services;
+﻿using AltCheck.Models;
+using AltCheck.Services;
 using OsuParsers.Decoders;
 using OsuParsers.Enums;
 
-namespace alternator_analyser.Control;
+namespace AltCheck.Control;
 
 public class ServicesController
 {

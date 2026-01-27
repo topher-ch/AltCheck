@@ -1,13 +1,13 @@
-﻿using alternator_analyser.Control;
-using alternator_analyser.Models;
-using alternator_analyser.Services;
+﻿using AltCheck.Control;
+using AltCheck.Models;
+using AltCheck.Services;
+using AltCheck.ViewModels;
+using AltCheck.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using alternator_analyser.ViewModels;
-using alternator_analyser.Views;
 
-namespace alternator_analyser;
+namespace AltCheck;
 
 public partial class App : Application
 {

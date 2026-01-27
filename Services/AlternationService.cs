@@ -1,10 +1,10 @@
-using alternator_analyser.Models;
+using AltCheck.Models;
 using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Objects.Taiko;
 using OsuParsers.Enums.Beatmaps;
 
-namespace alternator_analyser.Services;
+namespace AltCheck.Services;
 
 public class AlternationService
 {
