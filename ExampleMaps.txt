@@ -1,8 +1,28 @@
 ﻿Farm:
-https://osu.ppy.sh/beatmapsets/2121587#taiko/4458056
+https://osu.ppy.sh/beatmapsets/2121587#taiko/4458056 (RH Bias)
+https://osu.ppy.sh/beatmapsets/2054228#taiko/4291522 (RH Bias)
+https://osu.ppy.sh/beatmapsets/1613246#taiko/3293724 (slight RH Bias)
+https://osu.ppy.sh/beatmapsets/2042964#taiko/4263291 (RH Bias on 5-note 1/4 bursts)
 
-
-Tech Farm:
+Tech:
+https://osu.ppy.sh/beatmapsets/2392651#taiko/5186318 (no bias on 1/2, almost all nested 1/6 are off RH however on 1/4)
+https://osu.ppy.sh/beatmapsets/2392651#taiko/5186728 (RH bias on bursts between 10 and 24 notes long, however no noticeable biases on nested 1/6)
+https://osu.ppy.sh/beatmapsets/1407228#taiko/2901604 (many long tech streams, largely start of RH but extremely high rhythm complexity)
+https://osu.ppy.sh/beatmapsets/2350118#taiko/5056926 (most 1/6 patterns come in even note lengths, implying likely simple 1/4 + 1/6 combinations)
+https://osu.ppy.sh/beatmapsets/2260133#taiko/4810198 (small RH bias, but largely consistent rhythm complexity)
 
 Rhythm Slop:
+https://osu.ppy.sh/beatmapsets/1355679#taiko/2805796
+https://osu.ppy.sh/beatmapsets/1615826#taiko/3299023
+https://osu.ppy.sh/beatmapsets/2167213#taiko/4572334 (this one doesn't catch too much rhythm complexity at first glance, but seemingly a RH bias in the 10-24 range)
+https://osu.ppy.sh/beatmapsets/2167213#taiko/4572333 (funnily enough, the lower diff has LH bias)
 
+Miscellaneous:
+https://osu.ppy.sh/beatmapsets/928431#taiko/1939224 (doubles)
+https://osu.ppy.sh/beatmapsets/1972518#taiko/4093075 (doubles)
+https://osu.ppy.sh/beatmapsets/1712810#taiko/3499915 (lots of even note 1/4 patterns)
+https://osu.ppy.sh/beatmapsets/2137833#taiko/4529104 (LH Bias)
+https://osu.ppy.sh/beatmapsets/2137833#taiko/4499137 (LH Bias)
+https://osu.ppy.sh/beatmapsets/2283239#taiko/4869109 (stream map but balanced)
+
+ 
