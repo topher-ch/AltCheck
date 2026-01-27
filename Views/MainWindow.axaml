@@ -3,7 +3,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
-        xmlns:viewModels="clr-namespace:alternator_analyser.ViewModels"
         mc:Ignorable="d" d:DesignWidth="1030" d:DesignHeight="500"
         x:Class="alternator_analyser.Views.MainWindow"
         Title="AltCheck"
