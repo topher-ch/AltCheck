@@ -28,7 +28,7 @@ public class ServicesController
         var (changed, path) = await _gameMonitorService.CheckForBeatmapChange(token);
         if (_settingsDirty || changed)
         {
-            Console.WriteLine(path);
+            // Console.WriteLine(path);
             var beatmap = BeatmapDecoder.Decode(path);
             if (beatmap.GeneralSection.Mode != Ruleset.Taiko)
             {
@@ -37,11 +37,11 @@ public class ServicesController
             }
             var alternatedHitObjects = _alternationService.MapAlternatedHitObjects(beatmap);
             var patternCounts = _statsService.CountPatterns(beatmap, alternatedHitObjects);
-            foreach (var patternCount in patternCounts)
-            {
-                Console.WriteLine($"Length: {patternCount.Key.Item1}, BeatSnapDivisors: {patternCount.Key.Item2}");
-                Console.WriteLine($"L: {patternCount.Value.LCount}, R: {patternCount.Value.RCount}, B: {patternCount.Value.BCount}");
-            }
+            // foreach (var patternCount in patternCounts)
+            // {
+            //    Console.WriteLine($"Length: {patternCount.Key.Item1}, BeatSnapDivisors: {patternCount.Key.Item2}");
+            //    Console.WriteLine($"L: {patternCount.Value.LCount}, R: {patternCount.Value.RCount}, B: {patternCount.Value.BCount}");
+            // }
             MarkSettingsClean();
             return patternCounts;
         }
