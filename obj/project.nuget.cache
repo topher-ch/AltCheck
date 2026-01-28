@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ghxlw7svWJw=",
+  "dgSpecHash": "SRT8WyxyAE8=",
   "success": true,
   "projectFilePath": "C:\\Users\\chris\\RiderProjects\\AltCheck\\AltCheck.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "C:\\Users\\chris\\.nuget\\packages\\livechartscore.skiasharpview.avalonia\\2.0.0-rc6.1\\livechartscore.skiasharpview.avalonia.2.0.0-rc6.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microcom.runtime\\0.11.0\\microcom.runtime.0.11.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.12\\microsoft.net.illink.tasks.9.0.12.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\osumemorydataprovider\\0.11.1\\osumemorydataprovider.0.11.1.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\osuparsers\\1.7.2\\osuparsers.1.7.2.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\processmemorydatafinder\\0.9.0\\processmemorydatafinder.0.9.0.nupkg.sha512",
@@ -37,7 +38,11 @@
     "C:\\Users\\chris\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
-    "C:\\Users\\chris\\.nuget\\packages\\tmds.dbus.protocol\\0.21.2\\tmds.dbus.protocol.0.21.2.nupkg.sha512"
+    "C:\\Users\\chris\\.nuget\\packages\\tmds.dbus.protocol\\0.21.2\\tmds.dbus.protocol.0.21.2.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.12\\microsoft.netcore.app.runtime.win-x64.9.0.12.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.12\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.12.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.12\\microsoft.aspnetcore.app.runtime.win-x64.9.0.12.nupkg.sha512",
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\9.0.12\\microsoft.netcore.app.crossgen2.win-x64.9.0.12.nupkg.sha512"
   ],
   "logs": []
 }
