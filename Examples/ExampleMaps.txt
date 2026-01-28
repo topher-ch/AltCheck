@@ -1,4 +1,7 @@
-﻿Farm:
+﻿Balanced:
+https://osu.ppy.sh/beatmapsets/2283239#taiko/4869109 (stream map but balanced)
+
+Farm:
 https://osu.ppy.sh/beatmapsets/2121587#taiko/4458056 (RH Bias)
 https://osu.ppy.sh/beatmapsets/2054228#taiko/4291522 (RH Bias)
 https://osu.ppy.sh/beatmapsets/1613246#taiko/3293724 (slight RH Bias)
@@ -23,6 +26,3 @@ https://osu.ppy.sh/beatmapsets/1972518#taiko/4093075 (doubles)
 https://osu.ppy.sh/beatmapsets/1712810#taiko/3499915 (lots of even note 1/4 patterns)
 https://osu.ppy.sh/beatmapsets/2137833#taiko/4529104 (LH Bias)
 https://osu.ppy.sh/beatmapsets/2137833#taiko/4499137 (LH Bias)
-https://osu.ppy.sh/beatmapsets/2283239#taiko/4869109 (stream map but balanced)
-
- 
