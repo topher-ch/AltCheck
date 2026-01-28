@@ -4,10 +4,6 @@ A companion app to be run alongside osu! (stable or lazer) to visualize the
 starting hands of patterns and variety of beat snap divisors used in osu!taiko 
 beatmaps. See below for examples. Requires tosu to be running to access game data.
 
-## Examples
-
-- 
-
 ## Usage
 
 - Ensure tosu is running beforehand
@@ -36,3 +32,6 @@ beatmaps. See below for examples. Requires tosu to be running to access game dat
 - LiveCharts2
 - OsuParsers
 - Semi Avalonia
+
+
+## Examples
