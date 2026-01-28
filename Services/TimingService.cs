@@ -52,6 +52,6 @@ public static class TimingService
 
     public static double BpmToBeatLength(double bpm)
     {
-        return 240000 / bpm;
+        return 60000 / bpm;
     }
 }

@@ -27,7 +27,7 @@ public class StatsService
         var redLineIdx = 0;
         var beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx]);
         if (SingletapBeatLength is not null)
-            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 8, beatSnapLengths);
+            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 2, beatSnapLengths);
         // initialize dictionary taking the key "(length, beatSnapDivisorFlag)" to the value "Counts"
         var patternCounts = new Dictionary<(int length, BeatSnapDivisor beatSnapDivisorFlags), Counts>();
         var patternHandStart = alternatedHitObjects[0].HandAssignment;
@@ -44,7 +44,7 @@ public class StatsService
             {
                 beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx+1]);
                 if (SingletapBeatLength != null)
-                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 8, beatSnapLengths);
+                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 2, beatSnapLengths);
                 redLineIdx++;
             }
             // calculate distance and find closest beatSnapDivisor

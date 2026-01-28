@@ -30,7 +30,7 @@ public class AlternationService
         var redLineIdx = 0;
         var beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx]);
         if (SingletapBeatLength is not null)
-            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 8, beatSnapLengths);
+            SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 2, beatSnapLengths);
         
         // initialize list of alternated hit objects
         var alternatedHitObjects = new List<AlternatedHitObject>();
@@ -44,7 +44,7 @@ public class AlternationService
             {
                 beatSnapLengths = TimingService.TimingPointBeatSnapLengths(redLines[redLineIdx+1]);
                 if (SingletapBeatLength is not null)
-                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 8, beatSnapLengths);
+                    SingletapSnapDivisor = TimingService.ClosestBeatSnapDivisor(SingletapBeatLength.Value / 2, beatSnapLengths);
                 redLineIdx++;
             }
 
